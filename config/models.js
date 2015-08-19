@@ -8,5 +8,6 @@ var userSchema = mongoose.Schema({
     status: {type:Boolean, default:false}
 });
  
-mongoose.connect('mongodb://localhost:27017/android-chat-node');
+//mongoose.connect('mongodb://localhost:27017/android-chat-node');
+mongoose.connect('mongodb://admin:admin@ds035663.mongolab.com:35663/spark-chat');
 module.exports = mongoose.model('users', userSchema);
