@@ -2,21 +2,21 @@
  * Module dependencies.
  */
 var express  = require('express');
-var connect = require('connect');
-var app      = express();
-var port     = process.env.PORT || 8080;
+
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+var app = express();
+
+var config = require('./config/config')[env];
  
 // Configuration
-app.use(express.static(__dirname + '/public'));
-app.use(connect.logger('dev'));
-app.use(connect.bodyParser());
-app.use(connect.json());
-app.use(connect.urlencoded());
+require('./config/express')(app, config);
  
+// mongodb connection
+require('./config/mongoose')(config);
+
 // Routes
+require('./config/routes')(app);
  
-require('./routes/routes.js')(app);
- 
-app.listen(port);
- 
-console.log('The App runs on port ' + port);
+app.listen(config.port);
+console.log('The App runs on port ' + config.port);
