@@ -30,8 +30,7 @@ exports.logout = function(req, res) {
 exports.getUsers = function(req, res) {
     var name = req.body.name;
     user.find({name: {$ne : name}}, function(err,users){ 
-       var len = users.length; 
-        if(len == 0){ 
+        if(err){ 
             res.send({'response':"No Users Registered"});
         }else{
             res.json(users);
